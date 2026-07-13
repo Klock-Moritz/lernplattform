@@ -46,3 +46,24 @@ export const Default: Story = {
     error: new Error("Ein Fehler ist aufgetreten. Bitte versuche es erneut.")
   }
 };
+
+export const MultipleLines: Story = {
+  args: {
+    messages: [
+      {
+        id: "1",
+        role: "user",
+        parts: [
+          { type: "text", text: "Hallo, wie geht es dir?" }
+        ]
+      },
+      {
+        id: "2",
+        role: "assistant",
+        parts: [
+          { type: "text", text: "Mir geht es gut, danke!\r\n\r\nIch bin hier, um dir zu helfen!" }
+        ]
+      }
+    ],
+  }
+};
