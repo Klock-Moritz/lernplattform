@@ -1,0 +1,74 @@
+{
+  "common": {
+    "industry": "Branche",
+    "jobTitle": "Berufsbezeichnung",
+    "role": "Rolle",
+    "context": "Kontext",
+    "format": "Format",
+    "constraints": "Constraints",
+    "qa": "QA/Rückfragen",
+    "label": {
+      "industry": "In welcher Branche sind Sie tätig?",
+      "jobTitle": "Welchen Beruf üben Sie aus?"
+    },
+    "reset": "Zurücksetzen",
+    "save": "Speichern",
+    "next": "Weiter"
+  },
+  "header": {
+    "learningPlatform": "Lernplattform",
+    "about": "Über MenschKI!",
+    "blog": "Blog",
+    "results": "Ergebnisse",
+    "publications": "Publikationen",
+    "contact": "Kontakt"
+  },
+  "page": {
+    "personalization": {
+      "title": "Personalisierung",
+      "sideContent": "# Willkommen!\n\nDamit wir die Inhalte optimal auf Sie zuschneiden können, würden wir uns über einige Informationen über Sie freuen.\n\n__Hinweis:__ Geben Sie weder personenbezogene noch unternehmensinterne Daten in das Tool ein. Die Angaben sind freiwillig. Ihre Daten werden nicht gespeichert."
+    },
+    "self-eval": {
+      "title": "Selbsteinschätzung",
+      "sideContent": "# Fähigkeiten im Umgang mit KI\n\nIm Folgenden lesen Sie Beschreibungen verschiedener Fähigkeiten, die man im Umgang mit künstlicher Intelligenz haben kann. Diese Fähigkeiten können stärker oder schwächer ausgeprägt sein.  \nBitte bewerten Sie sich selbst: __Wie stark sind Ihre Fähigkeiten ausgeprägt?__\n\nEin Wert von 0 bedeutet, dass eine Fähigkeit gar nicht oder kaum ausgeprägt ist.  \nEin Wert von 10 bedeutet, dass eine Fähigkeit sehr gut oder (nahezu) perfekt ausgeprägt ist.\n\nBitte wählen Sie den Wert aus, der Ihre Fähigkeit am besten beschreibt."
+    }
+  },
+  "mails": {
+    "label": {
+      "useAndApply1": "Ich kann KI-Anwendungen bedienen.",
+      "useAndApply2": "Ich kann KI-Anwendungen nutzen, um mein Leben zu vereinfachen.",
+      "useAndApply3": "Ich kann KI sinnvoll einsetzen, um meine Ziele zu erreichen.",
+      "useAndApply4": "Im Alltag kann ich mit KI so interagieren, dass es meine Aufgaben leichter macht.",
+      "useAndApply5": "Ich kann gewinnbringend mit KI zusammenarbeiten.",
+      "useAndApply6": "Ich kann gewinnbringend mit KI kommunizieren.",
+      "knownAndUnderstand1": "Ich kenne die wichtigsten Konzepte des Themas \"KI\".",
+      "knownAndUnderstand2": "Ich kenne Definitionen künstlicher Intelligenz.",
+      "knownAndUnderstand3": "Ich kann beurteilen, welche Grenzen und Chancen der Einsatz einer KI mit sich bringt.",
+      "knownAndUnderstand4": "Ich kann einschätzen, welche Vor- und Nachteile der Einsatz einer KI mit sich bringt.",
+      "knownAndUnderstand5": "Ich kann mit neue Verwendungszwecke für KI ausdenken.",
+      "knownAndUnderstand6": "Ich kann mir mögliche zukünftige Anwendungen von KI vorstellen.",
+      "detectAI1": "Ich kann erkennen, ob ich es mit einer Anwendung zu tun habe, die auf KI basiert.",
+      "detectAI2": "Ich kann Geräte, die KI nutzen, von Geräten unterscheiden, die keine KI nutzen.",
+      "detectAI3": "Ich kann unterscheiden, ob ich mit einer KI oder einem \"echten Menschen\" interagiere.",
+      "aiEthics1": "Ich kann abwägen, welche Konsequenzen die Nutzung von KI für die Gesellschaft hat.",
+      "aiEthics2": "Ich kann ethische Gesichtspunkte bei der Entscheidung einbeziehen, ob ich die Daten nutze, die eine KI bereitstellt.",
+      "aiEthics3": "Ich kann KI-basierte Anwendungen auf ihre ethischen Implikationen hin analysieren.",
+      "createAI1": "Ich kann neue KI-Anwendungen designen.",
+      "createAI2": "Ich kann neue Anwendungen im Bereich \"künstliche Intelligenz\" programmieren.",
+      "createAI3": "Ich kann neue KI-Anwendungen entwickeln.",
+      "createAI4": "Ich kann sinnvolle Werkzeuge (z.B. Frameworks, Programmiersprachen) auswählen, um eine KI zu programmieren.",
+      "aiProblemSolving1": "In schwierigen Situationen bei der Nutzung von KI kann ich mich auf meine Fähigkeiten verlassen.",
+      "aiProblemSolving2": "Die meisten Probleme im Umgang mit künstlicher Intelligenz kann ich aus eigener Kraft gut meistern.",
+      "aiProblemSolving3": "Auch anstrengende und komplizierte Aufgaben bei der Zusammenarbeit mit künstlicher Intelligenz kann ich in der Regel gut lösen.",
+      "learning1": "Trotz der schnellen Veränderungen im Bereich der KI, kann ich stets auf dem aktuellen Stand bleiben.",
+      "learning2": "Ich kann mich über aktuelle Neuerungen bei KI-Anwendungen informieren.",
+      "learning3": "Obwohl es häufig neue KI-Anwendungen gibt, gelingt es mir, mein Wissen und meine Fähigkeiten aktuell zu halten.",
+      "persuationLiteracy1": "Ich lasse mich in meinen Entscheidungen nicht durch KI beeinflussen.",
+      "persuationLiteracy2": "Ich kann verhindern, dass KI mich in meinen Entscheidungen beeinflusst.",
+      "persuationLiteracy3": "Ich merke, wenn ich in meinen Entscheidungen von KI beeinflusst werde.",
+      "emotionRegulation1": "Während ich mit KI Aufgaben erledige, behalte ich die Kontrolle über Gefühle wie Frustration oder Angst.",
+      "emotionRegulation2": "Ich kann damit umgehen, wenn mich Interaktionen mit KI frustieren oder ängstigen.",
+      "emotionRegulation3": "Ich kann meine Euphorie kontrollieren, die aufkommt, wenn ich KI zu verschiedenen Zwecke nutze."
+    }
+  }
+}
