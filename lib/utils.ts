@@ -1,5 +1,3 @@
-import { assert } from "console";
-
 /**
  * Sums all non-null numeric values in a record.
  */
@@ -18,7 +16,6 @@ export function getHighestReachedThreshold<T extends string>(
 	score: number
 ): T {
 	const entries = Object.entries(thresholds) as [T, number][];
-  assert(entries.length > 0, "Thresholds record must not be empty");
 
 	const reached = entries
 		.filter(([_, threshold]) => score >= threshold)

@@ -1,4 +1,5 @@
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
+import { extractReasoningMiddleware, wrapLanguageModel } from "ai";
 
 /**
  * A provider for local and external LLMs at the KIT.
@@ -15,4 +16,9 @@ export const kiToolbox = createOpenAICompatible({
   includeUsage: true,
 });
 
-export const model = kiToolbox("kit.minimax-m2.7-229b")
+export const model = wrapLanguageModel({
+  model: kiToolbox("kit.minimax-m2.7-229b"),
+  middleware: extractReasoningMiddleware({
+    tagName: "think"
+  })
+});
