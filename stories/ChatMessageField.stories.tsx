@@ -8,6 +8,7 @@ const meta = {
   args: {
     onChange: fn(),
     onSend: fn(),
+    defaultValue: "",
   }
 } satisfies Meta<typeof ChatMessageField>;
 

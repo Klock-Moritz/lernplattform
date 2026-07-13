@@ -1,8 +1,8 @@
 import useSession from "./use_session";
 
 export const mailsQuestionTypes = [
-  "detectAI", "programAI", "learning", "emotionRegulation", "aiEthics",
-  "designAI", "applyAI", "aiProblemSolving", "persuationLiteracy", "understandAI",
+  "useAndApply1", "useAndApply2", "useAndApply3", "useAndApply4",
+  "useAndApply5", "useAndApply6", "knowAndUnderstand3", "knowAndUnderstand4"
 ] as const;
 
 export type MailsQuestionType = typeof mailsQuestionTypes[number];
