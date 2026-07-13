@@ -14,3 +14,5 @@ export const kiToolbox = createOpenAICompatible({
   baseURL: 'https://ki-toolbox.scc.kit.edu/api/v1',
   includeUsage: true,
 });
+
+export const model = kiToolbox("kit.minimax-m2.7-229b")

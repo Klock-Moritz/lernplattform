@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="de">
       <body>
-        <Theme accentColor='ruby' className="min-h-screen flex flex-col">
+        <Theme accentColor='ruby' className="min-h-screen h-screen flex flex-col">
           <NextIntlClientProvider>
             <Header homepageHref={baseUrl} links={[
               { href: "/", title: t("header.learningPlatform"), selected: true },

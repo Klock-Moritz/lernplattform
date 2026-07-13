@@ -11,7 +11,7 @@ export const ScoreList: React.FC<ScoreListProps> = ({
     <ul className="border-l-4 border-secondary-500 list-none pl-2">
         {Object.entries(scores).map(([key, value]) => (
             <li key={key}>
-                {translationFunction(key)}: <strong>{value !== null ? value : "-"}</strong>
+                {translationFunction(key)}: <span className="font-bold">{value !== null ? value : "-"}</span>
             </li>
         ))}
     </ul>

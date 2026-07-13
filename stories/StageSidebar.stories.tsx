@@ -12,8 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    "title": "Reflektiert Prompten mit KI",
-    "description": "Hier lernen Sie, wie Sie mit einem klaren Promptbaukasten arbeiten: Rolle, Aufgabe, Ziel, Kontext, und Format. Verbessern Sie Ihre Prompts mithilfe iterativer Aufgaben.",
+    "sideContent": "## Reflektiert Prompten mit KI\n\nHier lernen Sie, wie Sie mit einem klaren Promptbaukasten arbeiten: Rolle, Aufgabe, Ziel, Kontext, und Format. Verbessern Sie Ihre Prompts mithilfe iterativer Aufgaben.",
     "level": "beginner",
     "scores": {
       "role": 8,

@@ -11,7 +11,17 @@
       "industry": "In welcher Branche sind Sie tätig?",
       "jobTitle": "Welchen Beruf üben Sie aus?",
       "writeMessage": "Nachricht verfassen",
-      "sendMessage": "Nachricht senden"
+      "sendMessage": "Nachricht senden",
+      "level": "Level",
+      "totalScore": "Punktestand",
+      "learningObjectives": "Lernziele",
+      "progress": "Fortschritt",
+      "tasksCompleted": "Aufgaben bearbeitet"
+    },
+    "level": {
+      "beginner": "Anfänger",
+      "intermediate": "Fortgeschritten",
+      "expert": "Experte"
     },
     "reset": "Zurücksetzen",
     "save": "Speichern",
@@ -33,6 +43,15 @@
     "self-eval": {
       "title": "Selbsteinschätzung",
       "sideContent": "# Fähigkeiten im Umgang mit KI\n\nIm Folgenden lesen Sie Beschreibungen verschiedener Fähigkeiten, die man im Umgang mit künstlicher Intelligenz haben kann. Diese Fähigkeiten können stärker oder schwächer ausgeprägt sein.  \nBitte bewerten Sie sich selbst: __Wie stark sind Ihre Fähigkeiten ausgeprägt?__\n\nEin Wert von 0 bedeutet, dass eine Fähigkeit gar nicht oder kaum ausgeprägt ist.  \nEin Wert von 10 bedeutet, dass eine Fähigkeit sehr gut oder (nahezu) perfekt ausgeprägt ist.\n\nBitte wählen Sie den Wert aus, der Ihre Fähigkeit am besten beschreibt."
+    },
+    "prompt-tutor": {
+      "title": "Prompt Tutor",
+      "sideContent": "### Reflektiert Prompten mit KI\n\nHier lernen Sie, wie Sie mit einem klaren Promptbaukasten arbeiten: Rolle, Aufgabe, Ziel, Kontext, und Format. Verbessern Sie Ihre Prompts mithilfe iterativer Aufgaben.",
+      "learningObjectives": {
+        "first": "Reflektierter Umgang mit generativer Künstlicher Intelligenz",
+        "second": "Effektiveres Prompting",
+        "third": "Hinterfragen und Einordnen der Antworten"
+      }
     }
   },
   "mails": {
