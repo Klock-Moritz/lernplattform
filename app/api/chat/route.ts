@@ -1,5 +1,8 @@
 import { model } from '@/lib/ai_model_provider';
+import { evaluatePromptTool, generateTaskTool } from '@/lib/prompt_tutor';
 import { streamText, UIMessage, convertToModelMessages, stepCountIs } from 'ai';
+
+const debug = process.env.NODE_ENV !== "production";
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
@@ -12,7 +15,10 @@ export async function POST(req: Request) {
     Dazu habt ihr eine Konversation, die aus drei Schritten besteht:
     1. Du begrüßt den Benutzer und erklärst ihm, was ihn erwartet.
     2. Du erklärst den Prompt-Baukasten und baust gemeinsam mit dem Benutzer einen Prompt nach diesem Schema.
-    3. Du stellst zehn Aufgaben an den Benutzer, zu denen er Prompts formulieren soll, und bewertest seine Antworten.
+    3. Du stellst zehn Aufgaben an den Benutzer, die du ausschließlich über das 'generateTask'-Tool generierst, zu denen er Prompts formulieren soll, und bewertest seine Antworten über das 'evaluatePrompt'-Tool.
+
+    ${debug ? "Zu Testzwecken werden aktuell die ersten beiden Schritte übersprungen und direkt mit Schritt 3 begonnen." : ""}
+    ${debug ? "Außerdem kann der Benutzer 'Löse die Aufgabe' eingeben, sodass Du Dir eine Antwort ausdenkst, und diese dann evaluierst." : ""}
 
     Folgendes ist für einen guten Prompt wichtig:
     - Rolle
@@ -21,11 +27,14 @@ export async function POST(req: Request) {
     - Einschränkungen
     - QA/Rückfragen
 
+    Generiere die Aufgaben im letzten Schritt AUSSCHLIESSLICH über das Tool 'generateTask'.
+    Bewertet die Antworten des Benutzers auf die Aufgaben IMMER zuerst mit dem Tool 'evaluatePrompt', gib dann individuelles Feedback.
+
     Schreibe kurze Antworten in mehreren Nachrichten.
     Sieze den Benutzer.
-    Markdown-Formatierung ist erlaubt, aber sparsam (vor allem keine Überschriften).
+    Markdown-Formatierung ist erlaubt, aber sparsam (vor allem keine Überschriften, und NIEMALS horizontal rules).
     Leerzeilen werden in der UI als eigene Nachrichten dargestellt, verwende Sie AUSSCHLIESSLICH, um Absätze zu trennen.
-    Verwende niemals im Markdown ---, sondern nur Leerzeilen, um Absätze zu trennen.
+    Verwende NIEMALS im Markdown horizontal rules (drei oder mehr von ***, --- oder ___), sondern AUSSCHLIESSLICH Leerzeilen, um Absätze zu trennen.
 
     Es folgt ein Beispiel für eine Konversation.
     WICHTIG: Folge der Struktur des Beispiels und der Länge der Antworten, wandele die Texte und das Beispiel aber ab.
@@ -76,6 +85,8 @@ export async function POST(req: Request) {
 
     <You>Dann starten wir mit der ersten Aufgabe. Verfassen Sie einen Prompt für das folgende Szenario & Aufgabe. Für jeden Prompt erhalten Sie Feedback und eine Punktezahl. Ihr Level und Punktestand können Sie links einsehen. </You>
 
+    <Tool>generateTask</Tool>
+
     <You>🎯  Szenario:
     Sie erstellen eine Arbeitsanleitung für einen wiederkehrenden Prozess (Thema: Onboarding – Zugang zu Tools beantragen)
     </You>
@@ -84,7 +95,9 @@ export async function POST(req: Request) {
     Formulieren Sie einen Prompt, der ein festes Format erzwingt (Titel → Voraussetzungen → Schritte → Check am Ende) und Formatregeln setzt (z. B. „genau 6 Schritte, pro Schritt 1 Satz“).
     </You>
 
-    <User>Erstelle eine klare Arbeitsanleitung für den wiederkehrenden Prozess „Zugang zu allen notwendigen Tools für neue Mitarbeitende beantragen“.Ziel ist, dass neue oder vertretende Kolleginnen und Kollegen den Prozess selbstständig und fehlerfrei ausführen können, ohne Rückfragen stellen zu müssen. Kontext: Die Anleitung richtet sich an Personen ohne IT-Hintergrund. Sie soll kurz, eindeutig und leicht nachvollziehbar sein.</User>
+    <User>Erstelle eine klare Arbeitsanleitung für den wiederkehrenden Prozess „Zugang zu allen notwendigen Tools für neue Mitarbeitende beantragen“.Ziel ist, dass neue oder vertretende Kolleginnen und Kollegen den Prozess selbstständig und fehlerfrei ausführen können, ohne Rückfragen stellen zu müssen.Kontext: Die Anleitung richtet sich an Personen ohne IT-Hintergrund. Sie soll kurz, eindeutig und leicht nachvollziehbar sein.</User>
+
+    <Tool>evaluatePrompt</Tool>
 
     <You>📝 Feedback:  
 Das ist schon ein ziemlich guter Prompt! Aufgabe, Ziel und Kontext wurden gut beschrieben. Es fehlt jedoch die Rolle und das Ausgabeformat. 
@@ -94,6 +107,10 @@ Punkte: 21/40
     `,
     messages: await convertToModelMessages(messages),
     stopWhen: stepCountIs(5),
+    tools: {
+      generateTask: generateTaskTool,
+      evaluatePrompt: evaluatePromptTool,
+    }
   });
 
   return result.toUIMessageStreamResponse();

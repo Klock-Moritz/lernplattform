@@ -33,7 +33,7 @@ export const ChatMessageField: React.FC<ChatMessageFieldProps> = ({
   }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === "Enter" && event.ctrlKey && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
       handleSend()
     }
@@ -47,6 +47,10 @@ export const ChatMessageField: React.FC<ChatMessageFieldProps> = ({
     }
 
     onSend?.(currentValue)
+
+    if (!isControlled) {
+      setInternalValue("")
+    }
   }
 
   return (

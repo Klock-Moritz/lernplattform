@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { ChatMessages } from './ChatMessages';
+import { ChatMessages, defaultPartRenderers, toolCallPartRenderer } from './ChatMessages';
 
 const meta = {
   component: ChatMessages,
@@ -62,6 +62,55 @@ export const MultipleLines: Story = {
         role: "assistant",
         parts: [
           { type: "text", text: "Mir geht es gut, danke!\r\n\r\nIch bin hier, um dir zu helfen!" }
+        ]
+      }
+    ],
+  }
+};
+
+export const ShowToolCalls: Story = {
+  args: {
+    partRenderers: defaultPartRenderers.concat(toolCallPartRenderer),
+    messages: [
+      {
+        id: "1",
+        role: "user",
+        parts: [
+          { type: "text", text: "Hallo, wie geht es dir?" }
+        ]
+      },
+      {
+        id: "2",
+        role: "assistant",
+        parts: [
+          { type: "text", text: "Mir geht es gut, danke!\r\n\r\nIch bin hier, um dir zu helfen! Ich generiere jetzt die erste Aufgabe." },
+            {
+            "type": "tool-generateTask",
+            "toolCallId": "call_cd31b78a481b469cbf7d99ed",
+            "state": "output-available",
+            "input": {
+              "level": "beginner",
+              "currentScore": {
+                "role": 0,
+                "context": 0,
+                "format": 0,
+                "constraints": 0,
+                "qa": 0
+              },
+              "userData": {
+                "industry": null,
+                "jobTitle": null
+              },
+              "completedTasksId": []
+            },
+            "output": {
+              "id": "B1",
+              "level": "beginner",
+              "goal": "role",
+              "scenario": "Du möchtest eine kurze E-Mail an Kolleg:innen verfassen (Thema: Terminabstimmung für ein Team-Meeting).",
+              "task": "Formuliere einen Prompt, der der KI eine klare Rolle zuweist (z. B. ‚Du bist ein professioneller E-Mail-Assistent‘)."
+            }
+          }
         ]
       }
     ],
