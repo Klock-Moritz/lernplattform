@@ -10,7 +10,7 @@ describe('generateTask', () => {
     const score: PromptTutorScore = { role: null, context: null, format: null, constraints: null, qa: null };
     const completed = ['B1'];
 
-    const task = await generateTask(level, score, dummyUser, completed);
+    const task = await generateTask(score, dummyUser, completed);
     expect(task.level).toBe(level);
     expect(completed).not.toContain(task.id);
   });
@@ -21,7 +21,7 @@ describe('generateTask', () => {
     // all beginner IDs from prompt_tutor.ts
     const allBeginner = ['B1','B6','B2','B7','B3','B8','B4','B9','B5','B10'];
 
-    const task = await generateTask(level, score, dummyUser, allBeginner);
+    const task = await generateTask(score, dummyUser, allBeginner);
     expect(task.level).toBe(level);
     expect(allBeginner).toContain(task.id);
   });
@@ -29,11 +29,11 @@ describe('generateTask', () => {
   it('filters tasks to the lowest-scoring goal when available', async () => {
     const level: PromptTutorLevel = 'intermediate';
     // make 'role' the lowest non-null score
-    const score: PromptTutorScore = { role: 1, context: 5, format: 5, constraints: 5, qa: 5 };
+    const score: PromptTutorScore = { role: 3, context: 5, format: 5, constraints: 5, qa: 5 };
     // ensure availableTasks contains at least one non-role task by marking some role tasks completed
     const completed = ['F5']; // F5 is intermediate role; others remain
 
-    const task = await generateTask(level, score, dummyUser, completed);
+    const task = await generateTask(score, dummyUser, completed);
     expect(task.level).toBe(level);
     expect(task.goal).toBe('role');
   });
@@ -41,21 +41,21 @@ describe('generateTask', () => {
   it('if no tasks of the lowest-scoring goal are available, does not filter by goal', async () => {
     const level: PromptTutorLevel = 'intermediate';
     // make 'role' the lowest non-null score
-    const score: PromptTutorScore = { role: 1, context: 5, format: 5, constraints: 5, qa: 5 };
+    const score: PromptTutorScore = { role: 3, context: 5, format: 5, constraints: 5, qa: 5 };
     // ensure availableTasks contains all role tasks completed
     const completed = ['F5', 'F10'];
 
-    const task = await generateTask(level, score, dummyUser, completed);
+    const task = await generateTask(score, dummyUser, completed);
     expect(task.level).toBe(level);
     expect(task.goal).not.toBe('role');
   });
 
   it('when all goals have null score, does not filter by goal', async () => {
-    const level: PromptTutorLevel = 'expert';
+    const level: PromptTutorLevel = 'beginner';
     const score: PromptTutorScore = { role: null, context: null, format: null, constraints: null, qa: null };
     const completed: string[] = [];
 
-    const task = await generateTask(level, score, dummyUser, completed);
+    const task = await generateTask(score, dummyUser, completed);
     expect(task.level).toBe(level);
   });
 });

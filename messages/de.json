@@ -27,6 +27,20 @@
     "save": "Speichern",
     "next": "Weiter"
   },
+  "tools": {
+    "tool-generateTask": {
+      "name": "Aufgabe generieren",
+      "description": "Generiert eine Aufgabe, die der Benutzer lösen soll."
+    },
+    "tool-evaluatePrompt": {
+      "name": "Prompt bewerten",
+      "description": "Bewertet einen eingegebenen Prompt."
+    },
+    "tool-pushResult": {
+      "name": "Bewertung speichern",
+      "description": "Speichert das Ergebnis einer Aufgabe."
+    }
+  },
   "header": {
     "learningPlatform": "Lernplattform",
     "about": "Über MenschKI!",

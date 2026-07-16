@@ -11,6 +11,8 @@ export const promptTutorLevels = [
 
 export type PromptTutorLevel = typeof promptTutorLevels[number];
 
+export const promptTutorLevelSchema = z.enum(promptTutorLevels);
+
 const levelThresholds: Record<PromptTutorLevel, number> = {
   beginner: 0,
   intermediate: 22,
@@ -56,7 +58,7 @@ export type PromptTutorTask = {
 
 export const promptTutorTaskSchema = z.object({
   id: z.string(),
-  level: z.enum(promptTutorLevels),
+  level: promptTutorLevelSchema,
   goal: z.enum(goalTypes),
   scenario: z.string(),
   task: z.string(),
@@ -65,7 +67,22 @@ export const promptTutorTaskSchema = z.object({
 export type PromptTutorEvaluation = {
   sampleResponse: string,
   score: PromptTutorScore,
+  totalScore: number,
   level: PromptTutorLevel,
+}
+
+export const promptTutorEvaluationSchema = z.object({
+  sampleResponse: z.string(),
+  score: promptTutorScoreSchema,
+  totalScore: z.number().min(0).max(maxScorePerGoal * goalTypes.length),
+  level: promptTutorLevelSchema,
+});
+
+export const defaultPromptTutorEvaluation: PromptTutorEvaluation = {
+  sampleResponse: "",
+  score: Object.fromEntries(goalTypes.map(key => [key, null])) as PromptTutorScore,
+  totalScore: 0,
+  level: "beginner",
 }
 
 /**
@@ -87,11 +104,11 @@ export type PromptTutorEvaluation = {
  * @returns A promise resolving to the generated task.
  */
 export const generateTask = async (
-  level: PromptTutorLevel,
   currentScore: PromptTutorScore,
   userData: UserData,
   completedTaskIds: string[]
 ): Promise<PromptTutorTask> => {
+  const level = getHighestReachedThreshold(levelThresholds, sumRecordValues(currentScore));
   const levelTasks = tasks.filter((task) => task.level === level);
 
   let availableTasks = levelTasks.filter((task) => !completedTaskIds.includes(task.id));
@@ -124,19 +141,19 @@ export const generateTask = async (
 export const generateTaskTool = tool({
   description: "Generiert eine neue Aufgabe für den Benutzer, basierend auf dem aktuellen Fortschritt.",
   inputSchema: z.object({
-    level: z.enum(promptTutorLevels),
     currentScore: promptTutorScoreSchema,
     userData: userDataSchema,
     completedTasksId: z.array(z.string()),
   }),
-  execute: async ({level, currentScore, userData, completedTasksId}) =>
-    await generateTask(level, currentScore as PromptTutorScore, userData as UserData, completedTasksId)
+  execute: async ({currentScore, userData, completedTasksId}) =>
+    await generateTask(currentScore as PromptTutorScore, userData as UserData, completedTasksId)
 })
 
 export const evaluatePrompt = async (
   task: PromptTutorTask,
   prompt: string
 ): Promise<PromptTutorEvaluation> => {
+  console.log("Evaluating prompt for task:", task.id, "with prompt:", prompt);
   const { output: sampleResponse } = await generateText({
     model,
     prompt
@@ -181,12 +198,13 @@ export const evaluatePrompt = async (
 
   const score = evaluation.output;
   if (!isPromptTutorScore(score)) {
+    console.error("Invalid evaluation format: expected numeric score record", score);
     throw new Error("Invalid evaluation format: expected numeric score record");
   }
   const totalScore = sumRecordValues(score);
   const level = getHighestReachedThreshold(levelThresholds, totalScore);
 
-  return { score, sampleResponse, level };
+  return { score, totalScore, sampleResponse, level };
 }
 
 export const evaluatePromptTool = tool({
